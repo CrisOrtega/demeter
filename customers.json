@@ -1,0 +1,18 @@
+{
+  "M7_HDAus": {
+    "region": "eu-west-1",
+    "database": "stg",
+    "bucket": "jptvs-aws-stg-af6f35ba-5f82-11ea-b6ba-0354e9fb4247",
+    "path": "athena",
+    "profile_name": "M7_stg",
+    "brand":"291bfcf4-5f83-11ea-b6ba-8fc2f567b0a6"
+  },
+  "PUREFLIX": {
+    "region":"us-east-1",
+    "database":"pro",
+    "bucket":"jptvs-aws-pro-21e452e6-684e-11ea-8438-976e67e72f9c",
+    "path":"athena",
+    "profile_name":"pureflix",
+    "brand":""
+  }
+}

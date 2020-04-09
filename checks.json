@@ -1,0 +1,29 @@
+{
+  "REG_001": {
+    "query": "select daydate,date_format(now(),'%Y%m%d'),count(*) from #d.fact_registereduser where type = 'Registration' and brandid='#b' group by daydate order by daydate desc limit 1;",
+    "warning": "#2 > #1",
+    "header":"Registrados:#3 . Last computed daydate: #1 (Goal: #2)",
+    "legend":"",
+    "message": "",
+    "applyto": "*",
+    "notapplyto" : "PUREFLIX"
+  },
+  "SUBS_001": {
+    "query": "select daydate,date_format(now(),'%Y%m%d'),subscriptionid, count(*) from #d.fact_registereduser where type = 'Subscription' and brandid='#b' and daydate = (select max(daydate) from #d.fact_registereduser)  group by daydate,subscriptionid order by count(*) desc limit 10;",
+    "warning": "",
+    "header":"Subscripciones. Last computed daydate: #1 (Goal: #2)",
+    "legend":"suscripcion : count",
+    "message": "#3 : #4",
+    "applyto": "*",
+    "notapplyto" : "PUREFLIX"
+  },
+  "PLAY_001": {
+    "query": "select daydate,date_format(now(),'%Y%m%d'), count(*) from #d.fact_playbackactivity group by daydate order by daydate desc limit 7;",
+    "warning": "#2 > #1",
+    "header":"Playbacks. Last computed date: #1 (Goal: #2)",
+    "legend":"daydate : count",
+    "message": "#1 : #3",
+    "applyto": "*",
+    "notapplyto" : ""
+  }
+}
