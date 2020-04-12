@@ -1,10 +1,5 @@
 import boto3
-import re
 import time
-
-# https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html
-# https://www.ilkkapeltola.fi/2018/04/simple-way-to-query-amazon-athena-in.html
-# https://gist.github.com/schledererj/b2e2a800998d61af2bbdd1cd50e08b76
 
 def session (region_name,profile_name):
     session = boto3.Session(profile_name=profile_name)
@@ -56,9 +51,4 @@ def athena_query_result(client, params,max_execution = 5):
         results.append([x['VarCharValue'] for x in datum])
     return results
 
-def cleanup(session, params):
-    s3 = session.resource('s3')
-    my_bucket = s3.Bucket(params['bucket'])
-    for item in my_bucket.objects.filter(Prefix=params['path']):
-        #item.delete()
-        print(item)
+
