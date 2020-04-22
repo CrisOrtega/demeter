@@ -14,5 +14,21 @@
     "path":"athena",
     "profile_name":"pureflix",
     "brand":""
+  },
+    "CASTALIA": {
+    "region":"us-west-2",
+    "database":"pro",
+    "bucket":"jptvs-aws-pro-2e0dbed2-2af9-11ea-a5e0-a7720abb7a01",
+    "path":"athena",
+    "profile_name":"castalia",
+    "brand":""
+  },
+    "CYBEROBICS_STG": {
+    "region":"us-west-2",
+    "database":"stg",
+    "bucket":"jptvs-aws-stg-6600ef0e-596f-11ea-ae08-83a29dc76316",
+    "path":"athena",
+    "profile_name":"cyberobics_stg",
+    "brand":"ced681ec-596f-11ea-ae0a-73308fff30c6"
   }
 }

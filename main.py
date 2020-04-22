@@ -6,8 +6,9 @@ def message(channel,text):
         print(text)
 def evaluate(test,results):
     output=test
-    for i in range(0,len(results)):
-        output=output.replace("#"+str(i+1),results[i])
+    if len(results)> 0:
+        for i in range(0,len(results)):
+            output=output.replace("#"+str(i+1),results[i])
     return output
 def normalize(text,char):
     i = 0
@@ -60,8 +61,8 @@ for customer in customers:
             message(channel,"Check "+str(check[0])+":")
             params['query']=check[1].replace("#d",customer[2])
             params['query'] = params['query'].replace("#b", customer[6])
-            result = demeter.athena_query_result(client, params)
-            if result != False:
+            result = demeter.athena_query_result(client, params, 15)
+            if (result != False) and (len(result)>0):
                 evaluation=evaluate(check[2],result[0])
                 header=evaluate(check[3],result[0])
                 if evaluation!="":
@@ -77,7 +78,7 @@ for customer in customers:
                 if check[4] != "":
                     mess = normalize(check[4], ":")
                     message(channel, "\t\t" + mess)
-                    message(channel, "\t\t" + "------------------------------------")
+                    message(channel, "\t\t" + "------------------------------------------------------------")
                 for res in result:
                     mess=normalize(evaluate(check[5],res),":")
                     message(channel,"\t\t"+mess)

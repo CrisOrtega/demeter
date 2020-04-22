@@ -6,7 +6,7 @@
     "legend":"",
     "message": "",
     "applyto": "*",
-    "notapplyto" : "PUREFLIX"
+    "notapplyto" : "PUREFLIX,CASTALIA"
   },
   "SUBS_001": {
     "query": "select daydate,date_format(now(),'%Y%m%d'),subscriptionid, count(*) from #d.fact_registereduser where type = 'Subscription' and brandid='#b' and daydate = (select max(daydate) from #d.fact_registereduser)  group by daydate,subscriptionid order by count(*) desc limit 10;",
@@ -15,7 +15,25 @@
     "legend":"suscripcion : count",
     "message": "#3 : #4",
     "applyto": "*",
-    "notapplyto" : "PUREFLIX"
+    "notapplyto" : "PUREFLIX,CASTALIA"
+  },
+  "SUBS_002": {
+    "query": "select substr(a.daydate,1,6), a.subscriptionid, count(*), TOTAL, (cast (count(*) as real)*100)/TOTAL from #d.fact_userdeactivation a inner join (select substr(daydate,1,6) as mes, subscriptionid, count(distinct subscriberid) as TOTAL from #d.fact_registereduser where type='Subscription' group by substr(daydate,1,6), subscriptionid ) b on substr(a.daydate,1,6)=b.mes and a.subscriptionid =b.subscriptionid where event = 'Subscription' and eventtype='End' and brandid='#b' and substr(daydate,1,6) = (select max(substr(daydate,1,6)) from #d.fact_userdeactivation) group by substr(a.daydate,1,6),a.subscriptionid,TOTAL order by substr(a.daydate,1,6) desc,a.subscriptionid;",
+    "warning": "",
+    "header":"Cancelaciones. Month: #1",
+    "legend":"mes : suscripcion : count : porcentaje",
+    "message": "#1 : #2 : #3 : #5",
+    "applyto": "*",
+    "notapplyto" : "PUREFLIX,CASTALIA"
+  },
+  "SUBS_003": {
+    "query": "select daydate,status,count(distinct subscriptionid), count(*) from #d.fact_registereduser where type = 'Subscription' and brandid='#b' and daydate = (select max(daydate) from #d.fact_registereduser) group by daydate,status order by daydate,count() desc,status  limit 20;",
+    "warning": "",
+    "header":"Trials. Dia: #1",
+    "legend":"Status : Suscripciones : count",
+    "message": "#2 : #3 : #4",
+    "applyto": "*",
+    "notapplyto" : "PUREFLIX,CASTALIA"
   },
   "PLAY_001": {
     "query": "select daydate,date_format(now(),'%Y%m%d'), count(*) from #d.fact_playbackactivity group by daydate order by daydate desc limit 7;",
@@ -24,6 +42,6 @@
     "legend":"daydate : count",
     "message": "#1 : #3",
     "applyto": "*",
-    "notapplyto" : ""
+    "notapplyto" : "CASTALIA"
   }
 }
